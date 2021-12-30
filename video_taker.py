@@ -1,18 +1,9 @@
 import tensorflow as tf
 import numpy as np
-import pathlib
-import zipfile
-import os
-
 import matplotlib.pyplot as plt
-from PIL import Image
-import cv2
-
-from object_detection.utils import ops as utils_ops
-from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
  
-def video_taker (detection_model, image_np, category_index):
+def video_taker (detection_model, image_np, category_index, video_writer):
     # The input needs to be a tensor, convert it using `tf.convert_to_tensor`.
     input_tensor = tf.convert_to_tensor(image_np)
     # The model expects a batch of images, so add an axis with `tf.newaxis`.
@@ -42,12 +33,7 @@ def video_taker (detection_model, image_np, category_index):
           category_index,
           use_normalized_coordinates=True,
           max_boxes_to_draw=200,
-          min_score_thresh=.30,
+          min_score_thresh=.40,
           agnostic_mode=False)
     
-    frame_width = 300
-    frame_height = 200
-    out = cv2.VideoWriter('data/out.avi',
-    cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'),
-    20,
-    (frame_width, frame_height))
+    video_writer.write(image_np_with_detections)

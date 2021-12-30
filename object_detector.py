@@ -1,15 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import pathlib
-import zipfile
-import os
-
-import matplotlib.pyplot as plt
-from PIL import Image
 import cv2
-
-from object_detection.utils import ops as utils_ops
-from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
  
 def object_detector (detection_model, image_np, category_index):
@@ -42,7 +33,7 @@ def object_detector (detection_model, image_np, category_index):
           category_index,
           use_normalized_coordinates=True,
           max_boxes_to_draw=200,
-          min_score_thresh=.30,
+          min_score_thresh=.40,
           agnostic_mode=False)
 
     cv2.imshow('result', image_np_with_detections) # 각 프레임마다 새로운 창을 띄우는 것이 아니므로, 창의 제목은 하나로 지정한다.
